@@ -1,0 +1,84 @@
+:root {
+	--auth-page-font-size: 1.2rem;
+}
+
+.main-container {
+	display: grid;
+	place-content: center;
+}
+
+.form-container h1 {
+	text-align: center;
+}
+
+.form-container .input {
+	outline: none;
+	border: 1px solid var(--color-primary);
+	font-size: 1rem;
+}
+.form-container .input:focus {
+	outline: 1px solid var(--color-primary);
+	border: 1px solid var(--color-primary);
+}
+.form-container .btn {
+	width: 100%;
+}
+.form-container .btn-primary {
+	background-color: var(--color-primary);
+	border: 1px solid var(--color-primary);
+}
+.form-container .btn-primary:hover {
+	background-color: var(--color-primary-300);
+	border: 1px solid var(--color-primary);
+}
+.form-container .btn-link {
+	font-size: var(--auth-page-font-size);
+	color: var(--color-primary);
+	border-bottom: 1px solid var(--color-primary);
+}
+.form-container .btn-link:hover {
+	color: var(--color-primary-200);
+	border-bottom: 1px solid var(--color-primary-200);
+}
+
+.form-container .form-link {
+	font-size: var(--auth-page-font-size);
+	margin: 10px 0;
+}
+.form-container label {
+	font-size: var(--auth-page-font-size);
+}
+.form-container input {
+	font-size: var(--auth-page-font-size);
+}
+.form-link {
+	font-size: var(--auth-page-font-size);
+}
+
+.form-extra-features {
+	font-size: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+}
+.form-extra-features .btn-link {
+	flex-shrink: 1;
+	font-size: 1rem;
+	text-align: end;
+	border: none;
+}
+.form-extra-features .btn-link:hover {
+	border: none;
+}
+
+.form-extra-features label {
+	font-size: 1rem;
+	margin-left: 4px;
+}
+
+.form-extra-input {
+	min-width: 10rem;
+	display: flex;
+	align-items: center;
+}

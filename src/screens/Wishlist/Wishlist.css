@@ -1,0 +1,12 @@
+.wishlist-container {
+	padding: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	min-height: calc(100vh - 5.5rem);
+}
+
+.wishlist-container .card {
+	margin: 1.5rem;
+}

@@ -1,0 +1,86 @@
+body {
+	background-color: var(--theme-bg-grey);
+}
+
+.main-grid-container {
+	min-height: calc(100vh - 4rem);
+}
+
+.main-grid-items-bill {
+	display: grid;
+	grid-template-columns: 1fr 30rem 30rem 1fr;
+	gap: 2rem;
+}
+
+.main-items {
+	display: grid;
+	place-content: center;
+}
+.main-bill {
+	padding-top: 1.5rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.main-items .card {
+	margin: 1.5rem;
+}
+
+.main-items .card-btns {
+	min-height: 6rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.main-items .btn-secondary {
+	min-width: 12rem;
+}
+
+.item-quantity {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.item-quantity i {
+	font-size: 1rem;
+}
+
+.bill-container {
+	min-height: 22rem;
+	min-width: 22rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.bill-hr-line-container {
+	display: flex;
+	justify-content: center;
+	margin: 1rem 0;
+}
+.bill-hr-line {
+	width: 90%;
+	height: 2px;
+	background-color: var(--theme-text-black);
+}
+
+.bill-list {
+	width: 90%;
+	font-size: 1.2rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bill-total {
+	font-weight: 600;
+}
+
+.bill-container .btn-primary {
+	width: 90%;
+}

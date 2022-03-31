@@ -1,0 +1,33 @@
+.nav-bar-search {
+	min-width: 20rem;
+}
+.nav-bar-search .input {
+	border: 1px solid var(--color-primary);
+}
+.nav-bar-search .input:focus {
+	outline: 1px solid var(--color-primary);
+}
+
+.nav-bar-links {
+	color: var(--color-primary);
+	display: flex;
+	align-items: center;
+}
+.nav-bar-link {
+	margin: 0 10px;
+}
+.nav-bar-link i {
+	color: var(--color-primary);
+	font-size: 1.5rem;
+}
+.nav-bar-link i:hover {
+	transform: scale(1.2);
+}
+.nav-bar-link .btn {
+	border: 1px solid var(--color-primary);
+	color: var(--color-primary);
+}
+.nav-bar-link .btn-secondary:hover {
+	background-color: var(--color-primary);
+	color: var(--theme-text-white);
+}

@@ -19,7 +19,7 @@
 
 body {
 	scrollbar-gutter: stable;
-	background-color: var(--theme-bg-white);
+	background-color: var(--theme-bg-grey);
 }
 
 .App {

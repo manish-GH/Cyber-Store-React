@@ -1,7 +1,3 @@
-body {
-	background-color: var(--theme-bg-grey);
-}
-
 .main-grid-container {
 	min-height: calc(100vh - 4rem);
 }

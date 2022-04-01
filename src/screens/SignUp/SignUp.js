@@ -1,14 +1,84 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./SignUp.css";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { SignUpValidation } from "./SignUpValidation";
+import { userSignUp } from "../../services";
 
 const SignUp = () => {
+	const navigate = useNavigate();
+	const [formData, setFormData] = useState({
+		username: "",
+		email: "",
+		password: "",
+		passwordCheck: "",
+		termsAndConditions: false,
+	});
+	const [error, setError] = useState("");
+
+	const handleFormFill = (data) => {
+		if (error) setError("");
+		setFormData(data);
+	};
+
+	const handleSignUp = async (event) => {
+		event.preventDefault();
+		try {
+			if (
+				SignUpValidation(
+					{
+						username: formData.username,
+						email: formData.email,
+						password: formData.password,
+						passwordCheck: formData.passwordCheck,
+						termsAndConditions: formData.termsAndConditions,
+					},
+					setError
+				)
+			) {
+				const didUserSignUp = await userSignUp({
+					username: formData.username,
+					email: formData.email,
+					password: formData.password,
+				});
+				if (didUserSignUp) {
+					setFormData({
+						username: "",
+						email: "",
+						password: "",
+						passwordCheck: "",
+						termsAndConditions: false,
+					});
+					navigate("/product");
+				} else {
+					setError("Error occurred. Please try again");
+				}
+			}
+		} catch (err) {
+			console.log("ERROR: ", err);
+		}
+	};
+
 	return (
 		<div className="main-container">
 			<div className="form-container">
 				<form className="form">
+					<h1>SignUp</h1>
+					{error ? <div className="form-error-msg">{error}</div> : null}
 					<div className="form-field">
-						<h1>SignUp</h1>
+						<label htmlFor="username" className="form-label">
+							Username
+						</label>
+						<input
+							type="text"
+							id="username"
+							className="input"
+							placeholder="Enter Username..."
+							value={formData.username}
+							onChange={(event) =>
+								handleFormFill({ ...formData, username: event.target.value })
+							}
+						/>
+					</div>
+					<div className="form-field">
 						<label htmlFor="email" className="form-label">
 							Email
 						</label>
@@ -17,6 +87,10 @@ const SignUp = () => {
 							id="email"
 							className="input"
 							placeholder="Enter Email..."
+							value={formData.email}
+							onChange={(event) =>
+								handleFormFill({ ...formData, email: event.target.value })
+							}
 						/>
 					</div>
 					<div className="form-field">
@@ -28,20 +102,61 @@ const SignUp = () => {
 							id="password"
 							className="input"
 							placeholder="Enter Password..."
+							value={formData.password}
+							onChange={(event) =>
+								handleFormFill({ ...formData, password: event.target.value })
+							}
+						/>
+					</div>
+					<div className="form-field">
+						<label htmlFor="confirm-password" className="form-label">
+							Confirm Password
+						</label>
+						<input
+							type="password"
+							id="confirm-password"
+							className="input"
+							placeholder="Enter Password Again..."
+							value={formData.passwordCheck}
+							onChange={(event) =>
+								handleFormFill({
+									...formData,
+									passwordCheck: event.target.value,
+								})
+							}
 						/>
 					</div>
 					<div className="form-extra-features">
 						<div className="form-extra-input">
-							<input type="checkbox" id="terms" name="terms" value="terms" />
-							<label htmlFor="terms"> I accept all Terms & Conditions</label>
+							<input
+								type="checkbox"
+								id="terms"
+								name="terms"
+								value="terms"
+								checked={formData.termsAndConditions}
+								onChange={() =>
+									handleFormFill({
+										...formData,
+										termsAndConditions: !formData.termsAndConditions,
+									})
+								}
+							/>
+							<label htmlFor="terms" className="form-label">
+								{" "}
+								I accept all Terms & Conditions
+							</label>
 						</div>
 					</div>
-					<button className="btn btn-primary">Create new account</button>
+					<button
+						onClick={(event) => handleSignUp(event)}
+						className="btn btn-primary"
+					>
+						Create new account
+					</button>
 					<p className="form-link text-center">
-						Already have an account?
+						Already have an account?{" "}
 						<span>
-							<Link to="/login" class="btn btn-link">
-								{" "}
+							<Link to="/login" className="btn btn-link">
 								Login
 							</Link>
 						</span>

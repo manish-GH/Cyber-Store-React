@@ -10,7 +10,7 @@ const userLogin = async ({ email, password }) => {
 			password
 		);
 		const userID = userCredential.user.uid;
-		return true;
+		return userID ? true : false;
 		//userID will be used later
 	} catch (err) {
 		console.log("ERROR: ", err);

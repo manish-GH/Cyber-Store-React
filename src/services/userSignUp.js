@@ -21,7 +21,8 @@ const userSignUp = async ({ username, email, password }) => {
 			address: [],
 		});
 		//userDoc will be used later in context
-		return true;
+
+		return userID ? true : false;
 	} catch (err) {
 		console.log("ERROR: ", err);
 		return false;

@@ -1,43 +1,52 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { SignUpValidation } from "./SignUpValidation";
 import { userSignUp } from "../../services";
 
 const SignUp = () => {
 	const navigate = useNavigate();
-	const [username, setUsername] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [passwordCheck, setPasswordCheck] = useState("");
-	const [termsAndConditions, setTermsAndConditions] = useState(false);
+	const [formData, setFormData] = useState({
+		username: "",
+		email: "",
+		password: "",
+		passwordCheck: "",
+		termsAndConditions: false,
+	});
 	const [error, setError] = useState("");
 
-	const handleFormFill = (data, setFunction) => {
+	const handleFormFill = (data) => {
 		if (error) setError("");
-		setFunction(data);
+		setFormData(data);
 	};
 
 	const handleSignUp = async (event) => {
 		event.preventDefault();
 		try {
 			if (
-				!username ||
-				!email ||
-				!password ||
-				!passwordCheck ||
-				!termsAndConditions
+				SignUpValidation(
+					{
+						username: formData.username,
+						email: formData.email,
+						password: formData.password,
+						passwordCheck: formData.passwordCheck,
+						termsAndConditions: formData.termsAndConditions,
+					},
+					setError
+				)
 			) {
-				setError("Fill all the fields");
-			} else if (password !== passwordCheck) {
-				setError("Passwords do not match");
-			} else if (password.length <= 6) {
-				setError("Password should contain at least 6 characters");
-			} else {
-				const didUserSignUp = await userSignUp({ username, email, password });
+				const didUserSignUp = await userSignUp({
+					username: formData.username,
+					email: formData.email,
+					password: formData.password,
+				});
 				if (didUserSignUp) {
-					setUsername("");
-					setEmail("");
-					setPassword("");
-					setPasswordCheck("");
+					setFormData({
+						username: "",
+						email: "",
+						password: "",
+						passwordCheck: "",
+						termsAndConditions: false,
+					});
 					navigate("/product");
 				} else {
 					setError("Error occurred. Please try again");
@@ -63,9 +72,9 @@ const SignUp = () => {
 							id="username"
 							className="input"
 							placeholder="Enter Username..."
-							value={username}
+							value={formData.username}
 							onChange={(event) =>
-								handleFormFill(event.target.value, setUsername)
+								handleFormFill({ ...formData, username: event.target.value })
 							}
 						/>
 					</div>
@@ -78,8 +87,10 @@ const SignUp = () => {
 							id="email"
 							className="input"
 							placeholder="Enter Email..."
-							value={email}
-							onChange={(event) => handleFormFill(event.target.value, setEmail)}
+							value={formData.email}
+							onChange={(event) =>
+								handleFormFill({ ...formData, email: event.target.value })
+							}
 						/>
 					</div>
 					<div className="form-field">
@@ -91,9 +102,9 @@ const SignUp = () => {
 							id="password"
 							className="input"
 							placeholder="Enter Password..."
-							value={password}
+							value={formData.password}
 							onChange={(event) =>
-								handleFormFill(event.target.value, setPassword)
+								handleFormFill({ ...formData, password: event.target.value })
 							}
 						/>
 					</div>
@@ -106,9 +117,12 @@ const SignUp = () => {
 							id="confirm-password"
 							className="input"
 							placeholder="Enter Password Again..."
-							value={passwordCheck}
+							value={formData.passwordCheck}
 							onChange={(event) =>
-								handleFormFill(event.target.value, setPasswordCheck)
+								handleFormFill({
+									...formData,
+									passwordCheck: event.target.value,
+								})
 							}
 						/>
 					</div>
@@ -119,9 +133,12 @@ const SignUp = () => {
 								id="terms"
 								name="terms"
 								value="terms"
-								checked={termsAndConditions}
+								checked={formData.termsAndConditions}
 								onChange={() =>
-									handleFormFill(!termsAndConditions, setTermsAndConditions)
+									handleFormFill({
+										...formData,
+										termsAndConditions: !formData.termsAndConditions,
+									})
 								}
 							/>
 							<label htmlFor="terms" className="form-label">

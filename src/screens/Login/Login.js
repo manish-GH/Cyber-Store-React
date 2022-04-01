@@ -1,30 +1,42 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../../services";
+import { LoginValidation } from "./LoginValidation";
 import "./Login.css";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [showPassword, setShowPassword] = useState(false);
+	const [formData, setFormData] = useState({
+		email: "",
+		password: "",
+		showPassword: false,
+	});
 	const [error, setError] = useState("");
 
-	const handleFormFill = (data, setFunction) => {
+	const handleFormFill = (data) => {
 		if (error) setError("");
-		setFunction(data);
+		setFormData(data);
 	};
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
 		try {
-			if (!email || !password) {
-				setError("Fill all the fields");
-			} else {
-				const doesUserExist = await userLogin({ email, password });
+			if (
+				LoginValidation(
+					{ email: formData.email, password: formData.password },
+					setError
+				)
+			) {
+				const doesUserExist = await userLogin({
+					email: formData.email,
+					password: formData.password,
+				});
 				if (doesUserExist) {
-					setEmail("");
-					setPassword("");
+					setFormData({
+						email: "",
+						password: "",
+						showPassword: false,
+					});
 					navigate("/product");
 				} else {
 					setError("Enter valid credentials");
@@ -50,8 +62,10 @@ const Login = () => {
 							id="email"
 							className="input"
 							placeholder="Enter Email..."
-							value={email}
-							onChange={(event) => handleFormFill(event.target.value, setEmail)}
+							value={formData.email}
+							onChange={(event) =>
+								handleFormFill({ ...formData, email: event.target.value })
+							}
 						/>
 					</div>
 					<div className="form-field">
@@ -59,17 +73,24 @@ const Login = () => {
 							Password
 						</label>
 						<input
-							type={showPassword ? "text" : "password"}
+							type={formData.showPassword ? "text" : "password"}
 							id="password"
 							className="input"
 							placeholder="Enter Password..."
-							value={password}
+							value={formData.password}
 							onChange={(event) =>
-								handleFormFill(event.target.value, setPassword)
+								handleFormFill({ ...formData, password: event.target.value })
 							}
 						/>
-						<span onClick={() => setShowPassword(!showPassword)}>
-							{showPassword ? (
+						<span
+							onClick={() =>
+								handleFormFill({
+									...formData,
+									showPassword: !formData.showPassword,
+								})
+							}
+						>
+							{formData.showPassword ? (
 								<i className="fas fa-eye-slash"></i>
 							) : (
 								<i className="fas fa-eye"></i>

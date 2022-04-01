@@ -16,32 +16,35 @@ const SignUp = () => {
 		setFunction(data);
 	};
 
-	const handleSignUp = (event) => {
+	const handleSignUp = async (event) => {
 		event.preventDefault();
-		if (
-			!username ||
-			!email ||
-			!password ||
-			!passwordCheck ||
-			!termsAndConditions
-		) {
-			setError("Fill all the fields");
-		} else if (password !== passwordCheck) {
-			setError("Passwords do not match");
-		} else if (password.length <= 6) {
-			setError("Password should contain at least 6 characters");
-		} else {
-			userSignUp({ username, email, password })
-				.then(() => {
+		try {
+			if (
+				!username ||
+				!email ||
+				!password ||
+				!passwordCheck ||
+				!termsAndConditions
+			) {
+				setError("Fill all the fields");
+			} else if (password !== passwordCheck) {
+				setError("Passwords do not match");
+			} else if (password.length <= 6) {
+				setError("Password should contain at least 6 characters");
+			} else {
+				const didUserSignUp = await userSignUp({ username, email, password });
+				if (didUserSignUp) {
 					setUsername("");
 					setEmail("");
 					setPassword("");
 					setPasswordCheck("");
 					navigate("/product");
-				})
-				.catch((err) => {
-					console.log("ERROR: ", err);
-				});
+				} else {
+					setError("Error occurred. Please try again");
+				}
+			}
+		} catch (err) {
+			console.log("ERROR: ", err);
 		}
 	};
 

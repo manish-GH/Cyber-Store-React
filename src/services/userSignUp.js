@@ -20,10 +20,11 @@ const userSignUp = async ({ username, email, password }) => {
 			orders: [],
 			address: [],
 		});
-		console.log(userDoc.id);
 		//userDoc will be used later in context
+		return true;
 	} catch (err) {
-		console.log("ERROR: ", err, err.message);
+		console.log("ERROR: ", err);
+		return false;
 	}
 };
 

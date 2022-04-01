@@ -18,6 +18,7 @@ const userSignUp = async ({ username, email, password }) => {
 			cart: [],
 			wishlist: [],
 			orders: [],
+			address: [],
 		});
 		console.log(userDoc.id);
 		//userDoc will be used later in context

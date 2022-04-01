@@ -72,7 +72,7 @@ const Login = () => {
 							{showPassword ? (
 								<i className="fas fa-eye-slash"></i>
 							) : (
-								<i class="fas fa-eye"></i>
+								<i className="fas fa-eye"></i>
 							)}
 						</span>
 					</div>

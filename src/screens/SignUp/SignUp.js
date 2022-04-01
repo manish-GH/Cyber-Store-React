@@ -1,14 +1,72 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./SignUp.css";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { userSignUp } from "../../services";
 
 const SignUp = () => {
+	const navigate = useNavigate();
+	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [passwordCheck, setPasswordCheck] = useState("");
+	const [termsAndConditions, setTermsAndConditions] = useState(false);
+	const [error, setError] = useState("");
+
+	const handleFormFill = (data, setFunction) => {
+		if (error) setError("");
+		setFunction(data);
+	};
+
+	const handleSignUp = (event) => {
+		event.preventDefault();
+		if (
+			!username ||
+			!email ||
+			!password ||
+			!passwordCheck ||
+			!termsAndConditions
+		) {
+			setError("Fill all the fields");
+		} else if (password !== passwordCheck) {
+			setError("Passwords do not match");
+		} else if (password.length <= 6) {
+			setError("Password should contain at least 6 characters");
+		} else {
+			userSignUp({ username, email, password })
+				.then(() => {
+					setUsername("");
+					setEmail("");
+					setPassword("");
+					setPasswordCheck("");
+					navigate("/product");
+				})
+				.catch((err) => {
+					console.log("ERROR: ", err);
+				});
+		}
+	};
+
 	return (
 		<div className="main-container">
 			<div className="form-container">
 				<form className="form">
+					<h1>SignUp</h1>
+					{error ? <div className="form-error-msg">{error}</div> : null}
 					<div className="form-field">
-						<h1>SignUp</h1>
+						<label htmlFor="username" className="form-label">
+							Username
+						</label>
+						<input
+							type="text"
+							id="username"
+							className="input"
+							placeholder="Enter Username..."
+							value={username}
+							onChange={(event) =>
+								handleFormFill(event.target.value, setUsername)
+							}
+						/>
+					</div>
+					<div className="form-field">
 						<label htmlFor="email" className="form-label">
 							Email
 						</label>
@@ -17,6 +75,8 @@ const SignUp = () => {
 							id="email"
 							className="input"
 							placeholder="Enter Email..."
+							value={email}
+							onChange={(event) => handleFormFill(event.target.value, setEmail)}
 						/>
 					</div>
 					<div className="form-field">
@@ -28,20 +88,55 @@ const SignUp = () => {
 							id="password"
 							className="input"
 							placeholder="Enter Password..."
+							value={password}
+							onChange={(event) =>
+								handleFormFill(event.target.value, setPassword)
+							}
+						/>
+					</div>
+					<div className="form-field">
+						<label htmlFor="confirm-password" className="form-label">
+							Confirm Password
+						</label>
+						<input
+							type="password"
+							id="confirm-password"
+							className="input"
+							placeholder="Enter Password Again..."
+							value={passwordCheck}
+							onChange={(event) =>
+								handleFormFill(event.target.value, setPasswordCheck)
+							}
 						/>
 					</div>
 					<div className="form-extra-features">
 						<div className="form-extra-input">
-							<input type="checkbox" id="terms" name="terms" value="terms" />
-							<label htmlFor="terms"> I accept all Terms & Conditions</label>
+							<input
+								type="checkbox"
+								id="terms"
+								name="terms"
+								value="terms"
+								checked={termsAndConditions}
+								onChange={() =>
+									handleFormFill(!termsAndConditions, setTermsAndConditions)
+								}
+							/>
+							<label htmlFor="terms" className="form-label">
+								{" "}
+								I accept all Terms & Conditions
+							</label>
 						</div>
 					</div>
-					<button className="btn btn-primary">Create new account</button>
+					<button
+						onClick={(event) => handleSignUp(event)}
+						className="btn btn-primary"
+					>
+						Create new account
+					</button>
 					<p className="form-link text-center">
-						Already have an account?
+						Already have an account?{" "}
 						<span>
-							<Link to="/login" class="btn btn-link">
-								{" "}
+							<Link to="/login" className="btn btn-link">
 								Login
 							</Link>
 						</span>

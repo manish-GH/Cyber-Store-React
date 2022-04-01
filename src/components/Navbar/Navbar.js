@@ -6,9 +6,7 @@ const Navbar = () => {
 	return (
 		<nav className="nav-bar">
 			<div className="nav-bar-main">
-				<p onClick="scrollToTop()" className="nav-bar-logo">
-					Cyber Store
-				</p>
+				<p className="nav-bar-logo">Cyber Store</p>
 			</div>
 			<div className="nav-bar-search">
 				<input type="text" className="input" placeholder="Search..." />

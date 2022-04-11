@@ -33,3 +33,12 @@
 .landing-page-text-cta:hover i {
 	color: var(--theme-text-white);
 }
+
+.landing-page-card {
+	width: 12.5rem;
+}
+
+.landing-page-card:hover {
+	cursor: pointer;
+	transform: scale(1.01);
+}

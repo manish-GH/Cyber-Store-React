@@ -1,5 +1,5 @@
 import { Banner } from "./Banner";
-import { AuthorList } from "./AuthorList";
+import { Authors } from "./Authors";
 import { Categories } from "./Categories";
 
-export { Banner, AuthorList, Categories };
+export { Banner, Authors, Categories };

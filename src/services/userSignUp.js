@@ -10,8 +10,7 @@ const userSignUp = async ({ username, email, password }) => {
 			password
 		);
 		const userID = userCredential.user.uid;
-
-		const userDoc = await addDoc(collection(db, "users"), {
+		const initialUserData = {
 			id: userID,
 			username: username,
 			email: email,
@@ -19,10 +18,10 @@ const userSignUp = async ({ username, email, password }) => {
 			wishlist: [],
 			orders: [],
 			address: [],
-		});
-		//userDoc will be used later in context
-
-		return userID ? true : false;
+		};
+		const userDoc = await addDoc(collection(db, "users"), initialUserData);
+		const userData = { ...initialUserData, docID: userDoc.id };
+		return userID ? userData : false;
 	} catch (err) {
 		console.log("ERROR: ", err);
 		return false;

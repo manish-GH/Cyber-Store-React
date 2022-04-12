@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignUpValidation } from "./SignUpValidation";
 import { userSignUp } from "../../services";
+import { useAuth } from "../../context/AuthContext";
 
 const SignUp = () => {
 	const navigate = useNavigate();
+	const { setUserInfo } = useAuth();
 	const [formData, setFormData] = useState({
 		username: "",
 		email: "",
@@ -34,12 +36,12 @@ const SignUp = () => {
 					setError
 				)
 			) {
-				const didUserSignUp = await userSignUp({
+				const userData = await userSignUp({
 					username: formData.username,
 					email: formData.email,
 					password: formData.password,
 				});
-				if (didUserSignUp) {
+				if (userData) {
 					setFormData({
 						username: "",
 						email: "",
@@ -47,7 +49,8 @@ const SignUp = () => {
 						passwordCheck: "",
 						termsAndConditions: false,
 					});
-					navigate("/product");
+					setUserInfo(userData);
+					navigate("/productList");
 				} else {
 					setError("Error occurred. Please try again");
 				}

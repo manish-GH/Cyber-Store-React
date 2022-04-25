@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Products, Sidebar } from "./components";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { fetchUserInfo, fetchProductData } from "../../services";
 import { useData } from "../../context/DataContext";
 import "./ProductList.css";
@@ -9,7 +9,7 @@ const Product = () => {
 	const auth = getAuth();
 	const { userInfo, setUserInfo } = useData();
 
-	//UseEffect is for page reload - WORK IN PROGRESS
+	//UseEffect is for page reload
 	useEffect(() => {
 		if (!userInfo.id) {
 			(() => {
@@ -29,6 +29,7 @@ const Product = () => {
 				}
 			})();
 		}
+		// eslint-disable-next-line
 	}, []);
 
 	return (

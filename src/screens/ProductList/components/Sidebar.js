@@ -11,7 +11,7 @@ export const Sidebar = () => {
 			<section className="sidebar-section">
 				<form className="sidebar-input-form">
 					<fieldset className="sidebar-fieldset">
-						<legend className="sidebar-header">Category</legend>
+						<legend className="sidebar-header"> Category</legend>
 						<div className="sidebar-input-component">
 							<input
 								type="checkbox"
@@ -19,7 +19,7 @@ export const Sidebar = () => {
 								name="fiction"
 								value="fiction"
 							/>
-							<label htmlFor="fiction">Fiction</label>
+							<label htmlFor="fiction"> Fiction</label>
 						</div>
 						<div className="sidebar-input-component">
 							<input
@@ -28,7 +28,7 @@ export const Sidebar = () => {
 								name="non-fiction"
 								value="non-fiction"
 							/>
-							<label htmlFor="non-fiction">Non Fiction</label>
+							<label htmlFor="non-fiction"> Non Fiction</label>
 						</div>
 					</fieldset>
 				</form>
@@ -36,7 +36,7 @@ export const Sidebar = () => {
 			<section className="sidebar-section">
 				<form className="sidebar-input-form">
 					<fieldset className="sidebar-fieldset">
-						<legend className="sidebar-header">Rating</legend>
+						<legend className="sidebar-header"> Rating</legend>
 						<div className="sidebar-input-component">
 							<input
 								type="radio"
@@ -44,7 +44,7 @@ export const Sidebar = () => {
 								name="rating"
 								value="4-star-plus"
 							/>
-							<label htmlFor="4-star-plus">4 Stars & above</label>
+							<label htmlFor="4-star-plus"> 4 Stars & above</label>
 						</div>
 						<div className="sidebar-input-component">
 							<input
@@ -53,7 +53,7 @@ export const Sidebar = () => {
 								name="rating"
 								value="3-star-plus"
 							/>
-							<label htmlFor="3-star-plus">3 Stars & above</label>
+							<label htmlFor="3-star-plus"> 3 Stars & above</label>
 						</div>
 						<div className="sidebar-input-component">
 							<input
@@ -62,7 +62,7 @@ export const Sidebar = () => {
 								name="rating"
 								value="2-star-plus"
 							/>
-							<label htmlFor="2-star-plus">2 Stars & above</label>
+							<label htmlFor="2-star-plus"> 2 Stars & above</label>
 						</div>
 						<div className="sidebar-input-component">
 							<input
@@ -71,7 +71,7 @@ export const Sidebar = () => {
 								name="rating"
 								value="1-star-plus"
 							/>
-							<label htmlFor="1-star-plus">1 Star & above</label>
+							<label htmlFor="1-star-plus"> 1 Star & above</label>
 						</div>
 					</fieldset>
 				</form>
@@ -79,7 +79,7 @@ export const Sidebar = () => {
 			<section className="sidebar-section">
 				<form className="sidebar-input-form">
 					<fieldset className="sidebar-fieldset">
-						<legend className="sidebar-header">Sort By</legend>
+						<legend className="sidebar-header"> Sort By</legend>
 						<div className="sidebar-input-component">
 							<input
 								type="radio"
@@ -87,7 +87,7 @@ export const Sidebar = () => {
 								name="sort-price"
 								value="low-to-high"
 							/>
-							<label htmlFor="low-to-high">Price - Low to High</label>
+							<label htmlFor="low-to-high"> Price - Low to High</label>
 						</div>
 						<div className="sidebar-input-component">
 							<input
@@ -96,7 +96,7 @@ export const Sidebar = () => {
 								name="sort-price"
 								value="high-to-low"
 							/>
-							<label htmlFor="high-to-low">Price - High to Low</label>
+							<label htmlFor="high-to-low"> Price - High to Low</label>
 						</div>
 					</fieldset>
 				</form>

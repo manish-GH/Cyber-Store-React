@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDocs, where, query } from "firebase/firestore";
-import { auth, db } from "./firebase";
+import { auth } from "./firebase";
+import { fetchUserInfo } from "./fetchUserInfo";
 
 const userLogin = async ({ email, password }) => {
 	try {
@@ -10,13 +10,8 @@ const userLogin = async ({ email, password }) => {
 			password
 		);
 		const userID = userCredential.user.uid;
-		const userQuery = query(collection(db, "users"), where("id", "==", userID));
-		const userQuerySnapshot = await getDocs(userQuery);
-		const userData = userQuerySnapshot.docs.map((doc) => ({
-			docID: doc.id,
-			...doc.data(),
-		}));
-		return userID ? userData[0] : false;
+		const userData = await fetchUserInfo(userID);
+		return userID ? userData : false;
 	} catch (err) {
 		console.log("ERROR: ", err);
 		return false;

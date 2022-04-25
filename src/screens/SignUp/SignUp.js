@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignUpValidation } from "./SignUpValidation";
 import { userSignUp } from "../../services";
-import { useAuth } from "../../context/AuthContext";
+import { useData } from "../../context/DataContext";
 
 const SignUp = () => {
 	const navigate = useNavigate();
-	const { setUserInfo } = useAuth();
+	const { setUserInfo } = useData();
 	const [formData, setFormData] = useState({
 		username: "",
 		email: "",

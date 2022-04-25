@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../../services";
 import { LoginValidation } from "./LoginValidation";
-import { useAuth } from "../../context/AuthContext";
+import { useData } from "../../context/DataContext";
 import "./Login.css";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const { setUserInfo } = useAuth();
+	const { setUserInfo } = useData();
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",

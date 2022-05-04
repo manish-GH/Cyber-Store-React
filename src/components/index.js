@@ -1,3 +1,4 @@
 import Navbar from "./Navbar/Navbar";
+import { Slider } from "./Slider";
 
-export { Navbar };
+export { Navbar, Slider };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Slider } from "../../../components";
 
 export const Sidebar = () => {
 	return (
@@ -7,7 +8,7 @@ export const Sidebar = () => {
 				<h3 className="sidebar-header">Filters</h3>
 				<button className="btn btn-clear">Clear</button>
 			</section>
-			{/* <!-- ADD SLIDER LATER --> */}
+
 			<section className="sidebar-section">
 				<form className="sidebar-input-form">
 					<fieldset className="sidebar-fieldset">
@@ -100,6 +101,7 @@ export const Sidebar = () => {
 						</div>
 					</fieldset>
 				</form>
+				<Slider min={0} max={2000} />
 			</section>
 		</div>
 	);

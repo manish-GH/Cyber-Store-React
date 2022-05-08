@@ -24,6 +24,10 @@ export const Sidebar = () => {
 		lowToHigh: false,
 		highToLow: false,
 	});
+	const [price, setPrice] = useState({
+		minVal: 0,
+		maxVal: 2000,
+	});
 
 	const categoriesData = [
 		{
@@ -158,6 +162,10 @@ export const Sidebar = () => {
 			lowToHigh: false,
 			highToLow: false,
 		});
+		setPrice({
+			minVal: 0,
+			maxVal: 2000,
+		});
 		dataDispatch({ type: CLEAR_FILTERS });
 	};
 
@@ -226,7 +234,7 @@ export const Sidebar = () => {
 						))}
 					</fieldset>
 				</form>
-				<Slider min={0} max={2000} />
+				<Slider min={0} max={2000} price={price} setPrice={setPrice} />
 			</section>
 		</div>
 	);

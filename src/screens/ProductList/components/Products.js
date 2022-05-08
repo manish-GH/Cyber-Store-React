@@ -4,7 +4,6 @@ import { ProductCard } from "./ProductCard";
 
 export const Products = () => {
 	const { dataState } = useData();
-	// const productList = userInfo.productData;
 	return (
 		<div className="main-products">
 			{dataState.toDisplayProductData?.map((data) => (

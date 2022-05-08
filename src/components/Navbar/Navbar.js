@@ -5,9 +5,9 @@ import "./Navbar.css";
 const Navbar = () => {
 	return (
 		<nav className="nav-bar">
-			<div className="nav-bar-main">
+			<Link to="/" className="nav-bar-main">
 				<p className="nav-bar-logo">Cyber Store</p>
-			</div>
+			</Link>
 			<div className="nav-bar-search">
 				<input type="text" className="input" placeholder="Search..." />
 			</div>

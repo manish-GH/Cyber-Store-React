@@ -20,7 +20,7 @@ const Product = () => {
 							setUserInfo(userData);
 						} else {
 							const productData = await fetchProductData({});
-							setUserInfo({ productData });
+							setUserInfo({ productData, toDisplayProductData: productData });
 						}
 					});
 				} catch (err) {

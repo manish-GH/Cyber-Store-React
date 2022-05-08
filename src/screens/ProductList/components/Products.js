@@ -7,8 +7,8 @@ export const Products = () => {
 	// const productList = userInfo.productData;
 	return (
 		<div className="main-products">
-			{userInfo.productData?.map((productData) => (
-				<ProductCard productData={productData} key={productData.id} />
+			{userInfo.toDisplayProductData?.map((data) => (
+				<ProductCard productData={data} key={data.id} />
 			))}
 		</div>
 	);

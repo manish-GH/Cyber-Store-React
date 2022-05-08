@@ -12,7 +12,7 @@ const fetchUserInfo = async (userID) => {
 		}));
 		let userData = { ...userList[0] };
 		const productData = await fetchProductData(userData);
-		userData = { ...userData, productData };
+		userData = { ...userData, productData, toDisplayProductData: productData };
 		return userID ? userData : false;
 	} catch (err) {
 		console.log("ERROR: ", err);

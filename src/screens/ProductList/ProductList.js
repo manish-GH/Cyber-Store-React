@@ -4,23 +4,30 @@ import { getAuth } from "firebase/auth";
 import { fetchUserInfo, fetchProductData } from "../../services";
 import { useData } from "../../context/DataContext";
 import "./ProductList.css";
+import {
+	GET_DATA_WITH_AUTH,
+	GET_DATA_WITHOUT_AUTH,
+} from "../../constants/types";
 
 const Product = () => {
 	const auth = getAuth();
-	const { userInfo, setUserInfo } = useData();
+	const { dataState, dataDispatch } = useData();
 
 	//UseEffect is for page reload
 	useEffect(() => {
-		if (!userInfo.id) {
+		if (!dataState.id) {
 			(() => {
 				try {
 					auth.onAuthStateChanged(async (user) => {
 						if (user) {
 							const userData = await fetchUserInfo(user.uid);
-							setUserInfo(userData);
+							dataDispatch({ type: GET_DATA_WITH_AUTH, payload: userData });
 						} else {
 							const productData = await fetchProductData({});
-							setUserInfo({ productData, toDisplayProductData: productData });
+							dataDispatch({
+								type: GET_DATA_WITHOUT_AUTH,
+								payload: productData,
+							});
 						}
 					});
 				} catch (err) {

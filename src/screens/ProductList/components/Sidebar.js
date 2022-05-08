@@ -1,36 +1,191 @@
-import React from "react";
+import React, { useState } from "react";
 import { Slider } from "../../../components";
+import { useData } from "../../../context/DataContext";
+import {
+	CLEAR_FILTERS,
+	CATEGORY_FILTER,
+	RATING_FILTER,
+	SORT_FILTER,
+} from "../../../constants/types";
 
 export const Sidebar = () => {
+	const { dataDispatch } = useData();
+	const [categories, setCategories] = useState({
+		fiction: false,
+		nonFiction: false,
+	});
+	const [ratings, setRatings] = useState({
+		fourStar: false,
+		threeStar: false,
+		twoStar: false,
+		oneStar: false,
+	});
+	const [sort, setSort] = useState({
+		lowToHigh: false,
+		highToLow: false,
+	});
+
+	const categoriesData = [
+		{
+			id: 1,
+			name: "fiction",
+			displayName: "Fiction",
+			value: categories.fiction,
+			onChange: () => {
+				dataDispatch({ type: CATEGORY_FILTER, payload: "Fiction" });
+				setCategories({ ...categories, fiction: !categories.fiction });
+			},
+		},
+		{
+			id: 2,
+			name: "nonFiction",
+			displayName: "Non-Fiction",
+			value: categories.nonFiction,
+			onChange: () => {
+				dataDispatch({ type: CATEGORY_FILTER, payload: "Non-fiction" });
+				setCategories({
+					...categories,
+					nonFiction: !categories.nonFiction,
+				});
+			},
+		},
+	];
+
+	const ratingsData = [
+		{
+			id: 1,
+			name: "4-star-plus",
+			displayName: "4 Stars & above",
+			value: ratings.fourStar,
+			onChange: () => {
+				dataDispatch({ type: RATING_FILTER, payload: 4 });
+				setRatings({
+					fourStar: true,
+					threeStar: false,
+					twoStar: false,
+					oneStar: false,
+				});
+			},
+		},
+		{
+			id: 2,
+			name: "3-star-plus",
+			displayName: "3 Stars & above",
+			value: ratings.threeStar,
+			onChange: () => {
+				dataDispatch({ type: RATING_FILTER, payload: 3 });
+				setRatings({
+					fourStar: false,
+					threeStar: true,
+					twoStar: false,
+					oneStar: false,
+				});
+			},
+		},
+		{
+			id: 3,
+			name: "2-star-plus",
+			displayName: "2 Stars & above",
+			value: ratings.twoStar,
+			onChange: () => {
+				dataDispatch({ type: RATING_FILTER, payload: 2 });
+				setRatings({
+					fourStar: false,
+					threeStar: false,
+					twoStar: true,
+					oneStar: false,
+				});
+			},
+		},
+		{
+			id: 4,
+			name: "1-star-plus",
+			displayName: "1 Star & above",
+			value: ratings.oneStar,
+			onChange: () => {
+				dataDispatch({ type: RATING_FILTER, payload: 1 });
+				setRatings({
+					fourStar: false,
+					threeStar: false,
+					twoStar: false,
+					oneStar: true,
+				});
+			},
+		},
+	];
+
+	const sortData = [
+		{
+			id: 1,
+			name: "low-to-high",
+			displayName: "Price - Low to High",
+			value: sort.lowToHigh,
+			onChange: () => {
+				dataDispatch({ type: SORT_FILTER, payload: "low-to-high" });
+				setSort({
+					lowToHigh: true,
+					highToLow: false,
+				});
+			},
+		},
+		{
+			id: 2,
+			name: "high-to-low",
+			displayName: "Price - High to Low",
+			value: sort.highToLow,
+			onChange: () => {
+				dataDispatch({ type: SORT_FILTER, payload: "high-to-low" });
+				setSort({
+					lowToHigh: false,
+					highToLow: true,
+				});
+			},
+		},
+	];
+
+	const handleClear = () => {
+		setCategories({
+			fiction: false,
+			nonFiction: false,
+		});
+		setRatings({
+			fourStar: false,
+			threeStar: false,
+			twoStar: false,
+			oneStar: false,
+		});
+		setSort({
+			lowToHigh: false,
+			highToLow: false,
+		});
+		dataDispatch({ type: CLEAR_FILTERS });
+	};
+
 	return (
 		<div className="main-sidebar">
 			<section className="sidebar-section-filter">
 				<h3 className="sidebar-header">Filters</h3>
-				<button className="btn btn-clear">Clear</button>
+				<button className="btn btn-clear" onClick={handleClear}>
+					Clear
+				</button>
 			</section>
 
 			<section className="sidebar-section">
 				<form className="sidebar-input-form">
 					<fieldset className="sidebar-fieldset">
 						<legend className="sidebar-header"> Category</legend>
-						<div className="sidebar-input-component">
-							<input
-								type="checkbox"
-								id="fiction"
-								name="fiction"
-								value="fiction"
-							/>
-							<label htmlFor="fiction"> Fiction</label>
-						</div>
-						<div className="sidebar-input-component">
-							<input
-								type="checkbox"
-								id="non-fiction"
-								name="non-fiction"
-								value="non-fiction"
-							/>
-							<label htmlFor="non-fiction"> Non Fiction</label>
-						</div>
+						{categoriesData.map((item) => (
+							<div className="sidebar-input-component" key={item.id}>
+								<input
+									type="checkbox"
+									id={item.name}
+									name={item.name}
+									checked={item.value}
+									onChange={item.onChange}
+								/>
+								<label htmlFor={item.name}> {item.displayName}</label>
+							</div>
+						))}
 					</fieldset>
 				</form>
 			</section>
@@ -38,42 +193,18 @@ export const Sidebar = () => {
 				<form className="sidebar-input-form">
 					<fieldset className="sidebar-fieldset">
 						<legend className="sidebar-header"> Rating</legend>
-						<div className="sidebar-input-component">
-							<input
-								type="radio"
-								id="4-star-plus"
-								name="rating"
-								value="4-star-plus"
-							/>
-							<label htmlFor="4-star-plus"> 4 Stars & above</label>
-						</div>
-						<div className="sidebar-input-component">
-							<input
-								type="radio"
-								id="3-star-plus"
-								name="rating"
-								value="3-star-plus"
-							/>
-							<label htmlFor="3-star-plus"> 3 Stars & above</label>
-						</div>
-						<div className="sidebar-input-component">
-							<input
-								type="radio"
-								id="2-star-plus"
-								name="rating"
-								value="2-star-plus"
-							/>
-							<label htmlFor="2-star-plus"> 2 Stars & above</label>
-						</div>
-						<div className="sidebar-input-component">
-							<input
-								type="radio"
-								id="1-star-plus"
-								name="rating"
-								value="1-star-plus"
-							/>
-							<label htmlFor="1-star-plus"> 1 Star & above</label>
-						</div>
+						{ratingsData.map((item) => (
+							<div className="sidebar-input-component" key={item.id}>
+								<input
+									type="radio"
+									id={item.name}
+									name="rating"
+									checked={item.value}
+									onChange={item.onChange}
+								/>
+								<label htmlFor={item.name}> {item.displayName}</label>
+							</div>
+						))}
 					</fieldset>
 				</form>
 			</section>
@@ -81,24 +212,18 @@ export const Sidebar = () => {
 				<form className="sidebar-input-form">
 					<fieldset className="sidebar-fieldset">
 						<legend className="sidebar-header"> Sort By</legend>
-						<div className="sidebar-input-component">
-							<input
-								type="radio"
-								id="low-to-high"
-								name="sort-price"
-								value="low-to-high"
-							/>
-							<label htmlFor="low-to-high"> Price - Low to High</label>
-						</div>
-						<div className="sidebar-input-component">
-							<input
-								type="radio"
-								id="high-to-low"
-								name="sort-price"
-								value="high-to-low"
-							/>
-							<label htmlFor="high-to-low"> Price - High to Low</label>
-						</div>
+						{sortData.map((item) => (
+							<div className="sidebar-input-component" key={item.id}>
+								<input
+									type="radio"
+									id={item.name}
+									name="sort-price"
+									checked={item.value}
+									onChange={item.onChange}
+								/>
+								<label htmlFor={item.name}> {item.displayName}</label>
+							</div>
+						))}
 					</fieldset>
 				</form>
 				<Slider min={0} max={2000} />

@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { SignUpValidation } from "./SignUpValidation";
 import { userSignUp } from "../../services";
 import { useData } from "../../context/DataContext";
+import { GET_DATA_WITH_AUTH } from "../../constants/types";
 
 const SignUp = () => {
 	const navigate = useNavigate();
-	const { setUserInfo } = useData();
+	const { dataDispatch } = useData();
 	const [formData, setFormData] = useState({
 		username: "",
 		email: "",
@@ -49,7 +50,7 @@ const SignUp = () => {
 						passwordCheck: "",
 						termsAndConditions: false,
 					});
-					setUserInfo(userData);
+					dataDispatch({ type: GET_DATA_WITH_AUTH, payload: userData });
 					navigate("/productList");
 				} else {
 					setError("Error occurred. Please try again");

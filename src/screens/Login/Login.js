@@ -4,10 +4,11 @@ import { userLogin } from "../../services";
 import { LoginValidation } from "./LoginValidation";
 import { useData } from "../../context/DataContext";
 import "./Login.css";
+import { GET_DATA_WITH_AUTH } from "../../constants/types";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const { setUserInfo } = useData();
+	const { dataDispatch } = useData();
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -39,7 +40,7 @@ const Login = () => {
 						password: "",
 						showPassword: false,
 					});
-					setUserInfo(userData);
+					dataDispatch({ type: GET_DATA_WITH_AUTH, payload: userData });
 					navigate("/productList");
 				} else {
 					setError("Enter valid credentials");

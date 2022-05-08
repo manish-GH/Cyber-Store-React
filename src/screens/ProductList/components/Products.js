@@ -3,11 +3,11 @@ import { useData } from "../../../context/DataContext";
 import { ProductCard } from "./ProductCard";
 
 export const Products = () => {
-	const { userInfo } = useData();
+	const { dataState } = useData();
 	// const productList = userInfo.productData;
 	return (
 		<div className="main-products">
-			{userInfo.toDisplayProductData?.map((data) => (
+			{dataState.toDisplayProductData?.map((data) => (
 				<ProductCard productData={data} key={data.id} />
 			))}
 		</div>

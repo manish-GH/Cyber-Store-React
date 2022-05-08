@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useData } from "../../context/DataContext";
+import { PRICE_FILTER } from "../../constants/types";
 import "./styles.css";
 
 const thumbSize = 15;
 
 export const Slider = ({ min, max }) => {
+	const { dataDispatch } = useData();
 	const [avg, setAvg] = useState((min + max) / 2);
 	const [minVal, setMinVal] = useState(min);
 	const [maxVal, setMaxVal] = useState(max);
@@ -26,6 +29,23 @@ export const Slider = ({ min, max }) => {
 		},
 	};
 
+	const handleChange = (price, cb, type) => {
+		cb(price);
+		dataDispatch({
+			type: PRICE_FILTER,
+			payload:
+				type === "min"
+					? {
+							minPrice: price,
+							maxPrice: maxVal,
+					  }
+					: {
+							minPrice: minVal,
+							maxPrice: price,
+					  },
+		});
+	};
+
 	useEffect(() => {
 		setAvg((maxVal + minVal) / 2);
 	}, [minVal, maxVal]);
@@ -35,18 +55,29 @@ export const Slider = ({ min, max }) => {
 			<div className="rangeContainer">
 				<label htmlFor="minInput">Min</label>
 				<input
+					disabled
 					value={minVal}
-					onChange={(e) =>
-						setMinVal(e.target.value < min ? min : e.target.value)
-					}
+					/* MIGHT REQUIRE THESE COMMENTED CODES LATER */
+					// onChange={(e) =>
+					// 	handleChange(
+					// 		e.target.value < min ? min : e.target.value,
+					// 		setMinVal,
+					// 		"min"
+					// 	)
+					// }
 					id="minInput"
 				/>
 				<label htmlFor="maxInput">Max</label>
 				<input
+					disabled
 					value={maxVal}
-					onChange={(e) =>
-						setMaxVal(e.target.value < max ? e.target.value : max)
-					}
+					// onChange={(e) =>
+					// 	handleChange(
+					// 		e.target.value < max ? e.target.value : max,
+					// 		setMaxVal,
+					// 		"max"
+					// 	)
+					// }
 					id="maxInput"
 				/>
 			</div>
@@ -61,7 +92,9 @@ export const Slider = ({ min, max }) => {
 					min={min}
 					max={avg}
 					value={minVal}
-					onChange={(e) => setMinVal(Math.round(e.target.value))}
+					onChange={(e) =>
+						handleChange(Math.round(e.target.value), setMinVal, "min")
+					}
 				/>
 				<label htmlFor="max">Maximum price</label>
 				<input
@@ -73,7 +106,9 @@ export const Slider = ({ min, max }) => {
 					min={avg}
 					max={max}
 					value={maxVal}
-					onChange={(e) => setMaxVal(Math.round(e.target.value))}
+					onChange={(e) =>
+						handleChange(Math.round(e.target.value), setMaxVal, "max")
+					}
 				/>
 			</div>
 		</div>

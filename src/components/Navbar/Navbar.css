@@ -21,7 +21,7 @@
 	font-size: 1.5rem;
 }
 .nav-bar-link i:hover {
-	transform: scale(1.2);
+	transform: scale(1.03);
 }
 .nav-bar-link .btn {
 	border: 1px solid var(--color-primary);

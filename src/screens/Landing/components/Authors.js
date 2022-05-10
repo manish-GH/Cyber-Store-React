@@ -9,7 +9,7 @@ export const Authors = () => {
 			<div className="author-container">
 				<div className="card-set card-author">
 					{AUTHORS.map((authorData) => (
-						<AuthorCard authorData={authorData} />
+						<AuthorCard authorData={authorData} key={authorData.id} />
 					))}
 				</div>
 			</div>

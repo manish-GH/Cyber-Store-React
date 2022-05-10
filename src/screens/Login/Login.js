@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../../services";
 import { LoginValidation } from "./LoginValidation";
+import { useData } from "../../context/DataContext";
 import "./Login.css";
+import { GET_DATA_WITH_AUTH } from "../../constants/types";
 
 const Login = () => {
 	const navigate = useNavigate();
+	const { dataDispatch } = useData();
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -27,17 +30,18 @@ const Login = () => {
 					setError
 				)
 			) {
-				const doesUserExist = await userLogin({
+				const userData = await userLogin({
 					email: formData.email,
 					password: formData.password,
 				});
-				if (doesUserExist) {
+				if (userData) {
 					setFormData({
 						email: "",
 						password: "",
 						showPassword: false,
 					});
-					navigate("/product");
+					dataDispatch({ type: GET_DATA_WITH_AUTH, payload: userData });
+					navigate("/productList");
 				} else {
 					setError("Enter valid credentials");
 				}

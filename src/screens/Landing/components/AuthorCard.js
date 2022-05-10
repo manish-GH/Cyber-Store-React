@@ -2,7 +2,6 @@ import React from "react";
 
 export const AuthorCard = ({ authorData }) => {
 	const { author, image } = authorData;
-	console.log(author, image);
 	return (
 		<div className="card card-vertical landing-page-card">
 			<div>

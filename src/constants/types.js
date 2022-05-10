@@ -1,0 +1,13 @@
+export const GET_DATA_WITHOUT_AUTH = "GET_DATA_WITHOUT_AUTH";
+
+export const GET_DATA_WITH_AUTH = "GET_DATA_WITH_AUTH";
+
+export const CLEAR_FILTERS = "CLEAR_FILTERS";
+
+export const CATEGORY_FILTER = "CATEGORY_FILTER";
+
+export const RATING_FILTER = "RATING_FILTER";
+
+export const SORT_FILTER = "SORT_FILTER";
+
+export const PRICE_FILTER = "PRICE_FILTER";

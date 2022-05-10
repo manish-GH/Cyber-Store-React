@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignUpValidation } from "./SignUpValidation";
 import { userSignUp } from "../../services";
+import { useData } from "../../context/DataContext";
+import { GET_DATA_WITH_AUTH } from "../../constants/types";
 
 const SignUp = () => {
 	const navigate = useNavigate();
+	const { dataDispatch } = useData();
 	const [formData, setFormData] = useState({
 		username: "",
 		email: "",
@@ -34,12 +37,12 @@ const SignUp = () => {
 					setError
 				)
 			) {
-				const didUserSignUp = await userSignUp({
+				const userData = await userSignUp({
 					username: formData.username,
 					email: formData.email,
 					password: formData.password,
 				});
-				if (didUserSignUp) {
+				if (userData) {
 					setFormData({
 						username: "",
 						email: "",
@@ -47,7 +50,8 @@ const SignUp = () => {
 						passwordCheck: "",
 						termsAndConditions: false,
 					});
-					navigate("/product");
+					dataDispatch({ type: GET_DATA_WITH_AUTH, payload: userData });
+					navigate("/productList");
 				} else {
 					setError("Error occurred. Please try again");
 				}

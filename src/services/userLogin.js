@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDoc } from "firebase/firestore";
-import { auth, db } from "./firebase";
+import { auth } from "./firebase";
+import { fetchUserInfo } from "./fetchUserInfo";
 
 const userLogin = async ({ email, password }) => {
 	try {
@@ -10,8 +10,8 @@ const userLogin = async ({ email, password }) => {
 			password
 		);
 		const userID = userCredential.user.uid;
-		return userID ? true : false;
-		//userID will be used later
+		const userData = await fetchUserInfo(userID);
+		return userID ? userData : false;
 	} catch (err) {
 		console.log("ERROR: ", err);
 		return false;
